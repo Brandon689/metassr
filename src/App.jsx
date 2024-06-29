@@ -1,55 +1,64 @@
 import React from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import styled from '@emotion/styled'
+import SplashScreen from './components/SplashScreen'
+import AdminPanel from './components/AdminPanel'
 
-const Home = () => <h1>Home</h1>
-const About = () => <h1>About</h1>
-
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+const AppContainer = styled.div`
   font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`
+
+const Header = styled.header`
+  background-color: #333;
+  color: white;
+  padding: 1rem;
 `
 
 const Nav = styled.nav`
-  background-color: #f0f0f0;
-  padding: 10px;
-  margin-bottom: 20px;
-`
+  ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+  }
 
-const NavList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  gap: 20px;
-`
-
-const NavItem = styled.li`
   a {
+    color: white;
     text-decoration: none;
-    color: #333;
     &:hover {
-      color: #007bff;
+      text-decoration: underline;
     }
   }
 `
 
+const MainContent = styled.main`
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 function App() {
   return (
-    <Container>
-      <Nav>
-        <NavList>
-          <NavItem><Link to="/">Home</Link></NavItem>
-          <NavItem><Link to="/about">About</Link></NavItem>
-        </NavList>
-      </Nav>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </Container>
+    <AppContainer>
+      <Header>
+        <Nav>
+          <ul>
+            <li><Link to="/">Splash</Link></li>
+            <li><Link to="/admin">Admin</Link></li>
+          </ul>
+        </Nav>
+      </Header>
+      <MainContent>
+        <Routes>
+          <Route path="/" element={<SplashScreen />} />
+          <Route path="/admin" element={<AdminPanel />} />
+        </Routes>
+      </MainContent>
+    </AppContainer>
   )
 }
 
