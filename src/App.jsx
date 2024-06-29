@@ -1,8 +1,10 @@
+// src/App.jsx
 import React from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import SplashScreen from './components/SplashScreen'
 import AdminPanel from './components/AdminPanel'
+import Todos from './components/Todos'
 
 const AppContainer = styled.div`
   font-family: Arial, sans-serif;
@@ -36,9 +38,7 @@ const Nav = styled.nav`
 
 const MainContent = styled.main`
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 1rem;
 `
 
 function App() {
@@ -49,6 +49,7 @@ function App() {
           <ul>
             <li><Link to="/">Splash</Link></li>
             <li><Link to="/admin">Admin</Link></li>
+            <li><Link to="/todos">Todos</Link></li>
           </ul>
         </Nav>
       </Header>
@@ -56,6 +57,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SplashScreen />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/todos" element={<Todos />} />
         </Routes>
       </MainContent>
     </AppContainer>

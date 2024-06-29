@@ -33,12 +33,15 @@ async function createServer() {
       const { render } = await vite.ssrLoadModule('/server/entry-server.jsx');
   
       // 4. Render the app HTML
-      const { html: appHtml, styles } = await render(url);
-  
-      // 5. Inject the app-rendered HTML and styles into the template
-      const html = template
-        .replace(`<!--ssr-outlet-->`, appHtml)
-        .replace(`<!--emotion-styles-->`, styles);
+      const { html: appHtml, styles, dehydratedState } = await render(url);
+
+    const html = template
+      .replace(`<!--ssr-outlet-->`, appHtml)
+      .replace(`<!--emotion-styles-->`, styles)
+      .replace(
+        '<!--tanstack-query-state-->',
+        `<script>window.__TANSTACK_QUERY_STATE__ = ${dehydratedState};</script>`
+      );
   
       // 6. Send the rendered HTML back
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
